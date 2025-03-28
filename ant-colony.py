@@ -94,8 +94,8 @@ def init_jobs() -> np.array:
 def init_suitability_matrix(size) -> np.array:
     result_matrix = np.zeros((size, size))
 
-    for i in range(0, SCHEDULE_LENGTH):
-        for j in range(0, SCHEDULE_LENGTH):
+    for i in range(SCHEDULE_LENGTH):
+        for j in range(SCHEDULE_LENGTH):
             result_matrix[i][j] = 1 / JOBS_EDD[j][2]
 
     return result_matrix
@@ -137,7 +137,7 @@ def init_ant_colony() -> list:
 def pick_best(colony) -> Ant:
     best_ant = colony[0]
     for ant in colony:
-        if (ant.delay_score > best_ant.delay_score):
+        if (ant.delay_score < best_ant.delay_score):
             best_ant = ant
 
     return best_ant
@@ -166,9 +166,9 @@ def print_edd(edd_schedule, edd_delay_score):
 # ===== Initialization step =====
 
 # Initialize model hyperparameters and other constans
-PHEROMONE_POWER = 9 # alpha
-PHEROMONE_DECREASE_RATE = 0.3 # rho in [0, 1]
-SUITABILITY_POWER = 6 # beta
+PHEROMONE_POWER = 1 # alpha
+PHEROMONE_DECREASE_RATE = 0.8 # rho in [0, 1]
+SUITABILITY_POWER = 30 # beta
 JOB_SELECTION_RULE_TRESHOLD = 0.3 # q in [0, 1]
 
 # Initialize number of jobs and size of schedule
