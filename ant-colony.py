@@ -142,7 +142,7 @@ def pick_best(colony) -> Ant:
 
     return best_ant
 
-def update_feromones(ant, pheromone_matrix):
+def update_pheromones(ant, pheromone_matrix):
     for i in range(SCHEDULE_LENGTH):
         for j in range(SCHEDULE_LENGTH):
             if (ant.schedule[i] == j):
@@ -155,11 +155,11 @@ def reset_ants():
     for ant in colony:
         ant.reset_state()
 
-def print_result(best_schedule, best_delay_score):
+def print_aco_result(best_schedule, best_delay_score):
     print("Best schedule is: " + str(best_schedule))
     print("Best schedule's delay score is: " + str(best_delay_score))
 
-def print_edd(edd_schedule, edd_delay_score):
+def print_edd_result(edd_schedule, edd_delay_score):
         print("Best EDD schedule is: " + str(edd_schedule))
         print("Best EDD schedule's delay score is: " + str(edd_delay_score))
 
@@ -177,7 +177,7 @@ SCHEDULE_LENGTH = len(JOBS)
 JOBS_EDD = init_edd_schedule()
 EDD_SCORE = calculate_edd_delay(JOBS_EDD)
 
-print_edd(JOBS_EDD, EDD_SCORE)
+print_edd_result(JOBS_EDD, EDD_SCORE)
 
 # Initialize number of ants and iterations
 ITERATIONS_NUMBER = 200
@@ -202,10 +202,10 @@ def run_ACO():
         best_schedule = best_ant.map_to_schedule()
         best_delay_score = best_ant.delay_score
 
-        update_feromones(best_ant, pheromone_matrix)
+        update_pheromones(best_ant, pheromone_matrix)
         reset_ants()
     
-    print_result(best_schedule, best_delay_score)
+    print_aco_result(best_schedule, best_delay_score)
 
 # ===== Run ACO =====
 run_ACO()
