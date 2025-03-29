@@ -137,7 +137,7 @@ def init_ant_colony() -> list:
 def pick_best(colony) -> Ant:
     best_ant = colony[0]
     for ant in colony:
-        if (ant.delay_score < best_ant.delay_score):
+        if (ant.delay_score <= best_ant.delay_score):
             best_ant = ant
 
     return best_ant
