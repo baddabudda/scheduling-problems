@@ -79,7 +79,7 @@ class Ant:
 
         for schedule_pos in range(self.schedule_size):
             job_id = self.schedule[schedule_pos]
-            list.append(JOBS[job_id])
+            list.append(JOBS_EDD[job_id])
         
         return np.array(list, dtype=types)
 
@@ -88,6 +88,7 @@ class Ant:
 def init_jobs() -> np.array:
     types = [('job_number', int), ('processing_time', int), ('deadline', int)]
     values = [(1, 3, 5), (2, 1, 2), (3, 1, 3), (4, 2, 1)]
+    # values = [(1, 1, 2), (2, 2, 4), (3, 4, 3), (4, 1, 1)]
 
     return np.array(values, dtype=types)
 
@@ -168,8 +169,8 @@ def print_edd_result(edd_schedule, edd_delay_score):
 # Initialize model hyperparameters and other constans
 PHEROMONE_POWER = 1 # alpha
 PHEROMONE_DECREASE_RATE = 0.8 # rho in [0, 1]
-SUITABILITY_POWER = 30 # beta
-JOB_SELECTION_RULE_TRESHOLD = 0.3 # q in [0, 1]
+SUITABILITY_POWER = 1 # beta
+JOB_SELECTION_RULE_TRESHOLD = 0.4 # q in [0, 1]
 
 # Initialize number of jobs and size of schedule
 JOBS = init_jobs()
@@ -180,8 +181,8 @@ EDD_SCORE = calculate_edd_delay(JOBS_EDD)
 print_edd_result(JOBS_EDD, EDD_SCORE)
 
 # Initialize number of ants and iterations
-ITERATIONS_NUMBER = 200
-ANTS_NUMBER = 30
+ITERATIONS_NUMBER = 6
+ANTS_NUMBER = 2
 colony = init_ant_colony()
 
 # Initialize suitability matrix (Eta) and pheromone matrix (Tau)
@@ -208,4 +209,4 @@ def run_ACO():
     print_aco_result(best_schedule, best_delay_score)
 
 # ===== Run ACO =====
-run_ACO()
+run_ACO() # run aco
