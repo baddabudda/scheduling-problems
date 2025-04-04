@@ -3,6 +3,7 @@
 import random
 import numpy as np
 import input_parser as parser
+import summary
 
 # ===== Definition of Ant class =====
 # Each ant stores:
@@ -180,7 +181,7 @@ schedule_length = len(jobs)
 jobs_edd = init_edd_schedule()
 edd_score = calculate_edd_delay(jobs_edd)
 
-print_edd_result(jobs_edd, edd_score)
+# print_edd_result(jobs_edd, edd_score)
 
 # Initialize number of ants and iterations
 colony = init_ant_colony()
@@ -206,7 +207,8 @@ def run_ACO():
         update_pheromones(best_ant, pheromone_matrix)
         reset_ants()
     
-    print_aco_result(best_schedule, best_delay_score)
+    # print_aco_result(best_schedule, best_delay_score)
+    summary.print_stats(model, jobs_edd, edd_score, best_schedule, best_delay_score)
 
 # ===== Run ACO =====
 run_ACO() # run aco
