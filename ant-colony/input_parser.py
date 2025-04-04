@@ -36,5 +36,3 @@ def init_jobs() -> np.array:
             job_list.append(job_tuple)
 
     return np.array(job_list, dtype=JOB_STORAGE_TYPES)
-
-print(init_model_params())
