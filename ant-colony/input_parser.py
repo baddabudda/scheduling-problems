@@ -9,6 +9,7 @@ load_dotenv()
 
 cwd = os.path.dirname(__file__)
 input_file = os.getenv('PATH_TO_MODEL_DATA')
+jobs_sample_key = os.getenv('JOBS_SAMPLE_KEY')
 input_path = os.path.join(cwd, input_file)
 
 def init_model_params() -> dict:
@@ -31,7 +32,7 @@ def init_jobs() -> np.array:
     with open(input_path) as file:
         d = json.load(file)
         
-        for job in d['jobs']:
+        for job in d[jobs_sample_key]:
             job_tuple = (job['job_number'], job['processing_time'], job['deadline'])
             job_list.append(job_tuple)
 

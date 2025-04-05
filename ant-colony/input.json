@@ -4,14 +4,26 @@
         "pheromone_decrease_rate": 0.4,
         "suitability_power": 1,
         "job_selection_rule_threshold": 0.6,
-        "iterations": 90,
-        "colony_size": 30
+        "iterations": 60,
+        "colony_size": 20
     },
-    "jobs": [
+    "jobs_1": [
+        {"job_number": 1, "processing_time": 3, "deadline": 5},
+        {"job_number": 2, "processing_time": 1, "deadline": 2},
+        {"job_number": 3, "processing_time": 1, "deadline": 3},
+        {"job_number": 4, "processing_time": 2, "deadline": 1}
+    ],
+    "jobs_2": [
         {"job_number": 1, "processing_time": 121, "deadline": 260},
         {"job_number": 2, "processing_time": 79, "deadline": 266},
         {"job_number": 3, "processing_time": 147, "deadline": 266},
         {"job_number": 4, "processing_time": 83, "deadline": 336},
         {"job_number": 5, "processing_time": 130, "deadline": 337}
+    ],
+    "jobs_3": [
+        {"job_number": 1, "processing_time": 10, "deadline": 40},
+        {"job_number": 2, "processing_time": 10, "deadline": 30},
+        {"job_number": 3, "processing_time": 10, "deadline": 20},
+        {"job_number": 4, "processing_time": 10, "deadline": 10}
     ]
 }
