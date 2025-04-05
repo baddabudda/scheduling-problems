@@ -86,14 +86,6 @@ class Ant:
         return np.array(list, dtype=parser.JOB_STORAGE_TYPES)
 
 # ===== Definition of global methods =====
-
-# def init_jobs() -> np.array:
-#     types = [('job_number', int), ('processing_time', int), ('deadline', int)]
-#     values = [(1, 3, 5), (2, 1, 2), (3, 1, 3), (4, 2, 1)]
-#     values = [(1, 1, 2), (2, 2, 4), (3, 4, 3), (4, 1, 1)]
-
-#     return np.array(values, dtype=types)
-
 def init_suitability_matrix(size) -> np.array:
     result_matrix = np.zeros((size, size))
 
@@ -156,14 +148,6 @@ def reset_ants():
     for ant in colony:
         ant.reset_state()
 
-def print_aco_result(best_schedule, best_delay_score):
-    print("Best schedule is: " + str(best_schedule))
-    print("Best schedule's delay score is: " + str(best_delay_score))
-
-def print_edd_result(edd_schedule, edd_delay_score):
-    print("Best EDD schedule is: " + str(edd_schedule))
-    print("Best EDD schedule's delay score is: " + str(edd_delay_score))
-
 # ===== Initialization step =====
 
 # Initialize model hyperparameters and other constans
@@ -212,3 +196,18 @@ def run_ACO():
 
 # ===== Run ACO =====
 run_ACO() # run aco
+
+# ===== Previous output functions =====
+# def init_jobs() -> np.array:
+#     types = [('job_number', int), ('processing_time', int), ('deadline', int)]
+#     values = [(1, 3, 5), (2, 1, 2), (3, 1, 3), (4, 2, 1)]
+#     values = [(1, 1, 2), (2, 2, 4), (3, 4, 3), (4, 1, 1)]
+
+#     return np.array(values, dtype=types)
+# def print_aco_result(best_schedule, best_delay_score):
+#     print("Best schedule is: " + str(best_schedule))
+#     print("Best schedule's delay score is: " + str(best_delay_score))
+
+# def print_edd_result(edd_schedule, edd_delay_score):
+#     print("Best EDD schedule is: " + str(edd_schedule))
+#     print("Best EDD schedule's delay score is: " + str(edd_delay_score))
