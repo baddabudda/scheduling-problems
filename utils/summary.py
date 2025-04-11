@@ -1,4 +1,5 @@
 def print_aco_stats(model_dictionary, edd_schedule, edd_score, aco_scedule, aco_score):
+    print()
     print("=== Model stats ===")
     print(f"Pheromone power (alpha): {model_dictionary["pheromone_power"]}")
     print(f"Pheromone decrease rate (rho): {model_dictionary["pheromone_decrease_rate"]}")
@@ -22,6 +23,8 @@ def print_aco_stats(model_dictionary, edd_schedule, edd_score, aco_scedule, aco_
     print()
 
 def print_classic_stats(schedule, score):
+    print()
+    print("=== Classic schedule ===")
     print(f"Schedule: {str(schedule)}")
     print(f"Score: {score}")
     print()
