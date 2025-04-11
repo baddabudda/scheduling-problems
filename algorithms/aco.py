@@ -2,8 +2,7 @@
 
 import random
 import numpy as np
-import input_parser as parser
-import summary
+from utils.summary import print_aco_stats
 
 # ===== Definition of Ant class =====
 # Each ant stores:
@@ -76,14 +75,14 @@ class Ant:
         self.available_jobs = {job for job in range(self.schedule_size)}
     
     def map_to_schedule(self) -> np.array:
-        # types = [('job_number', int), ('processing_time', int), ('deadline', int)]
+        types = [('job_number', int), ('processing_time', int), ('deadline', int)]
         list = []
 
         for schedule_pos in range(self.schedule_size):
             job_id = self.schedule[schedule_pos]
             list.append(jobs_edd[job_id])
         
-        return np.array(list, dtype=parser.JOB_STORAGE_TYPES)
+        return np.array(list, dtype=types)
 
 # ===== Definition of global methods =====
 def init_suitability_matrix(size) -> np.array:
@@ -149,33 +148,46 @@ def reset_ants():
         ant.reset_state()
 
 # ===== Initialization step =====
+def init_data(data):
+    model_params = data['model_params']
+    # Initialize model hyperparameters and other constants
+    global pheromone_power 
+    pheromone_power = model_params['pheromone_power'] # alpha
+    global pheromone_decrese_rate
+    pheromone_decrese_rate = model_params['pheromone_decrease_rate'] # rho in [0, 1]
+    global suitability_power
+    suitability_power = model_params['suitability_power'] # beta
+    global job_selection_rule_threshold
+    job_selection_rule_threshold = model_params["job_selection_rule_threshold"] # q in [0, 1]
+    global iterations_number
+    iterations_number = model_params["iterations"]
+    global colony_size
+    colony_size = model_params["colony_size"]
 
-# Initialize model hyperparameters and other constans
-model = parser.init_model_params()
-pheromone_power = model["pheromone_power"] # alpha
-pheromone_decrese_rate = model["pheromone_decrease_rate"] # rho in [0, 1]
-suitability_power = model["suitability_power"] # beta
-job_selection_rule_threshold = model["job_selection_rule_threshold"] # q in [0, 1]
-iterations_number = model["iterations"]
-colony_size = model["colony_size"]
+    # Initialize number of jobs and size of the schedule
+    global jobs
+    jobs = data['jobs']
+    global schedule_length
+    schedule_length = len(jobs)
+    global jobs_edd
+    jobs_edd = init_edd_schedule()
+    global edd_score
+    edd_score = calculate_edd_delay(jobs_edd)
 
-# Initialize number of jobs and size of schedule
-jobs = parser.init_jobs()
-schedule_length = len(jobs)
-jobs_edd = init_edd_schedule()
-edd_score = calculate_edd_delay(jobs_edd)
-
-# print_edd_result(jobs_edd, edd_score)
-
-# Initialize number of ants and iterations
-colony = init_ant_colony()
-
-# Initialize suitability matrix (Eta) and pheromone matrix (Tau)
-suitability_matrix = init_suitability_matrix(schedule_length)
-pheromone_matrix = init_pheromone_matrix(schedule_length)
+    # Initialize colony
+    global colony
+    colony = init_ant_colony()
+    
+    # Initialize matrices
+    global suitability_matrix
+    suitability_matrix = init_suitability_matrix(schedule_length)
+    global pheromone_matrix
+    pheromone_matrix = init_pheromone_matrix(schedule_length)
 
 # ===== Define ACO caller function =====
-def run_ACO():
+def run_ACO(data):
+    init_data(data)
+
     # Initialize variables for best schedule
     best_schedule = np.full(schedule_length, 0)
     best_delay_score = -1
@@ -191,23 +203,5 @@ def run_ACO():
         update_pheromones(best_ant, pheromone_matrix)
         reset_ants()
     
-    # print_aco_result(best_schedule, best_delay_score)
-    summary.print_stats(model, jobs_edd, edd_score, best_schedule, best_delay_score)
-
-# ===== Run ACO =====
-run_ACO() # run aco
-
-# ===== Previous output functions =====
-# def init_jobs() -> np.array:
-#     types = [('job_number', int), ('processing_time', int), ('deadline', int)]
-#     values = [(1, 3, 5), (2, 1, 2), (3, 1, 3), (4, 2, 1)]
-#     values = [(1, 1, 2), (2, 2, 4), (3, 4, 3), (4, 1, 1)]
-
-#     return np.array(values, dtype=types)
-# def print_aco_result(best_schedule, best_delay_score):
-#     print("Best schedule is: " + str(best_schedule))
-#     print("Best schedule's delay score is: " + str(best_delay_score))
-
-# def print_edd_result(edd_schedule, edd_delay_score):
-#     print("Best EDD schedule is: " + str(edd_schedule))
-#     print("Best EDD schedule's delay score is: " + str(edd_delay_score))
+    # Print result
+    print_aco_stats(data['model_params'], jobs_edd, edd_score, best_schedule, best_delay_score)

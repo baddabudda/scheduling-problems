@@ -1,5 +1,6 @@
 import numpy as np
 import math
+from utils.summary import print_classic_stats
 
 def calculate_total_tardiness(start_time, jobs) -> int:
     finish_times = np.zeros(len(jobs))
@@ -60,17 +61,8 @@ def sequence(start_time, jobs) -> np.array:
         
     return best_schedule 
 
-
-def init_jobs() -> np.array:
-    types = [('job_number', int), ('processing_time', int), ('deadline', int)]
-    jobs = [(4, 83, 336), (1, 121, 260), (2, 79, 266), (3, 147, 266), (5, 130, 337)]
-    jobs_array = np.sort(np.array(jobs, dtype=types), order='deadline')
-
-    return jobs_array
-
-def run_classic():
-    jobs = init_jobs()
+def run_classic(data):
+    jobs = data['jobs']
     schedule = sequence(0, jobs)
-    print(schedule)
-
-run_classic()
+    total_tardiness = calculate_total_tardiness(0, schedule)
+    print_classic_stats(schedule, total_tardiness)

@@ -1,0 +1,11 @@
+{
+    "jobs": [
+        [
+            {"job_no": 1, "proc_time": 121, "deadline": 260},
+            {"job_no": 2, "proc_time": 79, "deadline": 266},
+            {"job_no": 3, "proc_time": 147, "deadline": 266},
+            {"job_no": 4, "proc_time": 83, "deadline": 336},
+            {"job_no": 5, "proc_time": 130, "deadline": 337}
+        ]
+    ]
+}
