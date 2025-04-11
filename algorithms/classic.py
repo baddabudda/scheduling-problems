@@ -19,9 +19,17 @@ def calculate_total_tardiness(start_time, jobs) -> int:
     return total_tardiness
 
 def find_pivot(jobs) -> int:
-    proc_times = np.array([job[1] for job in jobs])
-    max_proc_idx = np.argmax(proc_times)
-    return max_proc_idx
+    best_pivot = (-1, -1, -1)
+    
+    for i in range(len(jobs)):
+        if jobs[i][1] > best_pivot[1]:
+            best_pivot = jobs[i]
+        elif jobs[i][1] == best_pivot[1] and jobs[i][2] > best_pivot[2]:
+            best_pivot = jobs[i]
+
+    # proc_times = np.array([job[1] for job in jobs])
+    # max_proc_idx = np.argmax(proc_times)
+    return best_pivot[0] - 1 
 
 def calculate_start_time(start_time, previous_jobs):
     if len(previous_jobs) == 0:
