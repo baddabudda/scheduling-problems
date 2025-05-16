@@ -6,11 +6,15 @@ from algorithms.classic import run_classic
 if __name__ == '__main__':
     algorithm_to_run = greet()
 
-    if algorithm_to_run == 1: 
+    if algorithm_to_run == 'aco': 
         input_filename = 'aco.json'
         data = read_data(input_filename)
         run_ACO(data)
-    elif algorithm_to_run == 2: 
+    elif algorithm_to_run == 'classic': 
         input_filename = 'classic.json'
         data = read_data(input_filename)
         run_classic(data)
+    elif algorithm_to_run == 'parallel-flow':
+        input_filename = 'parallel-flow.json'
+        data = read_data(input_filename)
+        print(data)

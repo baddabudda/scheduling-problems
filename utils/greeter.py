@@ -1,6 +1,6 @@
 import os
 
-def greet() -> int:
+def greet() -> str:
     algorithms = dict() 
     code = 1
     for filename in os.listdir('./algorithms'):
@@ -17,6 +17,7 @@ def greet() -> int:
     while True:
         selected_code = int(input('Code: '))
         if selected_code in algorithms.keys():
-            return selected_code
+            # return selected_code
+            return algorithms[selected_code] 
         else:
             print('Wrong input. Try again!')
