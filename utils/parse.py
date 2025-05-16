@@ -44,7 +44,6 @@ def read_data(filename) -> dict:
     return data
 
 def parse_types(job_sample) -> list:
-    print(job_sample)
     if 'release_date' in job_sample.keys():
         return [('job_number', int), ('processing_time', int), ('release_date', int), ('deadline', int)]
 

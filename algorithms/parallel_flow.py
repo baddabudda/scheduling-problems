@@ -1,49 +1,35 @@
 import numpy as np
+from utils.summary import print_parallel_flow_answer
 
-# won't need; for quick coding only
-# TODO: remove
-def to_np_array(job_list) -> np.array:
-    types = [('job_number', int), ('processing_time', int), ('release_date', int), ('deadline', int)]
-    return np.array(job_list, dtype=types)
-
-def run_parallel_flow() -> bool:
-    # data format: id, proc_time, release_date, deadline
-    # TODO: move to tests
-    # working case: 3 machines and those jobs
-    jobs = [
-        (1, 3, 0, 5),
-        (2, 4, 1, 7),
-        (3, 2, 2, 4),
-        (4, 5, 3, 9),
-        (5, 1, 2, 5)
-    ]
-    # bad case: 1 machine and those jobs
-    # jobs = [
-    #     (1, 3, 0, 2)
-    # ]
-    jobs_typed = to_np_array(jobs)
-    machines = 3
+def run_parallel_flow(data):
+    machines, jobs = init_data(data)
 
     # initialize interval vertices 
-    release_deadline_list = jobs_typed[['release_date', 'deadline']]
+    release_deadline_list = jobs[['release_date', 'deadline']]
     interval_vertices = create_interval_vertices(len(jobs) + 1, release_deadline_list)
 
     # initialize adjacency and capacity matrix for max flow problem
-    adjacency_matrix = create_adjacency_matrix(jobs_typed, interval_vertices)
-    capacity_matrix = create_capacity_matrix(adjacency_matrix, jobs_typed, interval_vertices, machines)
+    adjacency_matrix = create_adjacency_matrix(jobs, interval_vertices)
+    capacity_matrix = create_capacity_matrix(adjacency_matrix, jobs, interval_vertices, machines)
 
     # find max flow in the network
     flow = find_max_flow(adjacency_matrix, capacity_matrix)
     # print(flow)
 
     # calculate threshold value: sum of processing times
-    possibility_threshold = sum([job['processing_time'] for job in jobs_typed])
+    possibility_threshold = sum([job['processing_time'] for job in jobs])
     # print(possibility_threshold)
 
-    if flow == possibility_threshold:
-        return True
-    
-    return False
+    print_parallel_flow_answer(flow == possibility_threshold)
+
+def init_data(data) -> (int, np.array):
+    """
+    Parse input data into algorithm entities.
+    """
+    machines = data['model_params']['number_of_machines']
+    jobs = data['jobs']
+
+    return machines, jobs
 
 def create_interval_vertices(start_id, rel_due_list) -> dict:
     """
@@ -199,5 +185,3 @@ def bfs(source, sink, parent, adj_matrix, cap_matrix) -> int:
                 queue.append((neighbor, new_flow))
     
     return 0
-
-print(run_parallel_flow())

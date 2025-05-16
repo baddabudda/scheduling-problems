@@ -38,3 +38,5 @@ def print_parallel_flow_answer(answer):
     else:
         print("There is no schedule respecting all time windows.")
     
+    print()
+    
