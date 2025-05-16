@@ -1,0 +1,27 @@
+
+{
+    "model_params": {
+        "pheromone_power": 2,
+        "pheromone_decrease_rate": 0.4,
+        "suitability_power": 2,
+        "job_selection_rule_threshold": 0.6,
+        "iterations": 100,
+        "colony_size": 20,
+        "number_of_machines": 2
+    },
+    "jobs": [
+        [
+            {"job_no": 1, "proc_time": 1, "deadline": 5, "penalty": 3},
+            {"job_no": 2, "proc_time": 1, "deadline": 2, "penalty": 2},
+            {"job_no": 3, "proc_time": 1, "deadline": 3, "penalty": 6},
+            {"job_no": 4, "proc_time": 1, "deadline": 1, "penalty": 1}
+        ],
+        [
+            {"job_no": 1, "proc_time": 1, "deadline": 1, "penalty": 1},
+            {"job_no": 2, "proc_time": 1, "deadline": 1, "penalty": 3},
+            {"job_no": 3, "proc_time": 1, "deadline": 1, "penalty": 4},
+            {"job_no": 4, "proc_time": 1, "deadline": 2, "penalty": 2},
+            {"job_no": 5, "proc_time": 1, "deadline": 1, "penalty": 5}
+        ]
+    ]
+}

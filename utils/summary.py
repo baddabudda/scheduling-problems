@@ -1,4 +1,4 @@
-def print_aco_stats(model_dictionary, edd_schedule, edd_score, aco_scedule, aco_score):
+def print_aco_stats(model_dictionary, heuristic_schedule, heuristic_score, aco_schedule, aco_score):
     print()
     print("=== Model stats ===")
     print(f"Pheromone power (alpha): {model_dictionary['pheromone_power']}")
@@ -12,13 +12,13 @@ def print_aco_stats(model_dictionary, edd_schedule, edd_score, aco_scedule, aco_
     print(f"Colony size (ants): {model_dictionary['colony_size']}")
     print()
 
-    print("=== EDD schedule ===")
-    print(f"Schedule: {str(edd_schedule)}")
-    print(f"Score: {edd_score}")
+    print("=== Heuristic schedule ===")
+    print(f"Schedule: {str(heuristic_schedule)}")
+    print(f"Score: {heuristic_score}")
     print()
 
     print("=== ACO schedule ===")
-    print(f"Schedule: {str(aco_scedule)}")
+    print(f"Schedule: {str(aco_schedule)}")
     print(f"Score: {aco_score}")
     print()
 

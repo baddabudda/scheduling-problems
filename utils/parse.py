@@ -46,5 +46,7 @@ def read_data(filename) -> dict:
 def parse_types(job_sample) -> list:
     if 'release_date' in job_sample.keys():
         return [('job_number', int), ('processing_time', int), ('release_date', int), ('deadline', int)]
+    elif 'penalty' in job_sample.keys():
+        return [('job_number', int), ('processing_time', int), ('deadline', int), ('penalty', int)]
 
     return [('job_number', int), ('processing_time', int), ('deadline', int)]
