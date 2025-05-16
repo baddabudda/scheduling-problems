@@ -1,0 +1,17 @@
+{
+    "model_params": {
+        "number_of_machines": 3
+    },
+    "jobs": [
+        [
+            {"job_no": 1, "proc_time": 3, "release_date": 0, "deadline": 5},
+            {"job_no": 2, "proc_time": 4, "release_date": 1, "deadline": 7},
+            {"job_no": 3, "proc_time": 2, "release_date": 2, "deadline": 4},
+            {"job_no": 4, "proc_time": 5, "release_date": 3, "deadline": 9},
+            {"job_no": 5, "proc_time": 1, "release_date": 2, "deadline": 5}
+        ],
+        [
+            {"job_no": 1, "proc_time": 3, "release_date": 0, "deadline": 2}
+        ]
+    ]
+}
