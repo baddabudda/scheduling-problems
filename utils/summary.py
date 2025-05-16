@@ -28,3 +28,13 @@ def print_classic_stats(schedule, score):
     print(f"Schedule: {str(schedule)}")
     print(f"Score: {score}")
     print()
+
+def print_parallel_flow_answer(answer):
+    print()
+    print("=== Parallel Flow ===")
+
+    if answer == True:
+        print("There exists a schedule respecting all time windows.")
+    else:
+        print("There is no schedule respecting all time windows.")
+    
