@@ -25,12 +25,14 @@ def read_data(filename) -> dict:
                 message = 'Multiple job batches found: {0}. Pick one: '.format(len(d['jobs']))
                 batch_no = int(input(message))
             
+            types = parse_types(d['jobs'][batch_no][0])
+
             for job in d['jobs'][batch_no]:
-                job_tuple = (job['job_no'], job['proc_time'], job['deadline'])
+                # job_tuple = (job['job_no'], job['proc_time'], job['deadline'])
+                job_tuple = tuple(job.values())
                 job_list.append(job_tuple)
             
-            
-            types = [('job_number', int), ('processing_time', int), ('deadline', int)]
+            # types = [('job_number', int), ('processing_time', int), ('deadline', int)]
             data['jobs'] = np.array(job_list, dtype=types)
         
         if len(data) == 0:
@@ -40,3 +42,10 @@ def read_data(filename) -> dict:
                             '- jobs (required): array = [[{job_no, proc_time, deadline}, ...], [{job_no, proc_time, deadline}, ...], ...] ')
         
     return data
+
+def parse_types(job_sample) -> list:
+    print(job_sample)
+    if 'release_date' in job_sample.keys():
+        return [('job_number', int), ('processing_time', int), ('release_date', int), ('deadline', int)]
+
+    return [('job_number', int), ('processing_time', int), ('deadline', int)]
